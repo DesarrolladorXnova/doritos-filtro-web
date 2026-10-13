@@ -56,12 +56,39 @@
     <p id="msg"></p>
   </div>
 
+  <script>
+    // Muestra en pantalla cualquier error, útil para probar desde el celular.
+    function showError(text) {
+      var m = document.getElementById('msg');
+      if (m) m.textContent = 'Error: ' + text;
+    }
+    window.addEventListener('error', function (e) { showError(e.message); });
+    window.addEventListener('unhandledrejection', function (e) {
+      showError((e.reason && e.reason.message) || e.reason);
+    });
+  </script>
+
   <script type="module">
-    import {
-      bootstrapCameraKit,
-      createMediaStreamSource,
-      Transform2D,
-    } from 'https://cdn.jsdelivr.net/npm/@snap/camera-kit/+esm';
+    // Se intenta cargar el SDK desde varios CDN, por si alguno falla.
+    const SDK_URLS = [
+      'https://esm.sh/@snap/camera-kit',
+      'https://cdn.jsdelivr.net/npm/@snap/camera-kit/+esm',
+    ];
+
+    async function loadSdk() {
+      const errors = [];
+      for (const url of SDK_URLS) {
+        try {
+          const mod = await import(url);
+          if (mod.bootstrapCameraKit) return mod;
+          errors.push(url + ': módulo incompleto');
+        } catch (e) {
+          console.error('No cargó', url, e);
+          errors.push(url + ': ' + (e?.message || e));
+        }
+      }
+      throw new Error('No se pudo cargar Camera Kit. ' + errors.join(' | '));
+    }
 
     // ===== Configuración =====
     // Cambia a true cuando Snap apruebe la app y pega el token de Production abajo.
@@ -101,10 +128,15 @@
           throw new Error('Este navegador no permite usar la cámara. Abre la página con HTTPS en Chrome o Safari.');
         }
 
+        msg.textContent = 'Cargando Camera Kit…';
+        const { bootstrapCameraKit, createMediaStreamSource, Transform2D } = await loadSdk();
+
+        msg.textContent = 'Iniciando…';
         const cameraKit = await bootstrapCameraKit({ apiToken: API_TOKEN });
         const session = await cameraKit.createSession({ liveRenderTarget: canvas });
         session.events.addEventListener('error', (e) => console.error('Error en el Lens:', e.detail));
 
+        msg.textContent = 'Pidiendo permiso de cámara…';
         const stream = await navigator.mediaDevices.getUserMedia({
           video: { facingMode: 'user' },
           audio: false,
@@ -118,6 +150,7 @@
         resize();
         window.addEventListener('resize', resize);
 
+        msg.textContent = 'Cargando el efecto…';
         const lens = await cameraKit.lensRepository.loadLens(LENS_ID, LENS_GROUP_ID);
         await session.applyLens(lens);
         await session.play();
