@@ -4,16 +4,15 @@ import {
   Transform2D,
 } from '@snap/camera-kit';
 
-// ===== Configuración =====
-// Cambia a true cuando Snap apruebe la app y pega el token de Production abajo.
-const USE_PRODUCTION = false;
+import {
+  USE_PRODUCTION,
+  STAGING_API_TOKEN,
+  PRODUCTION_API_TOKEN,
+  LENS_GROUP_ID,
+  LENS_ID,
+} from './config.js';
 
-const STAGING_API_TOKEN = 'eyJhbGciOiJIUzI1NiIsImtpZCI6IkNhbnZhc1MyU0hNQUNQcm9kIiwidHlwIjoiSldUIn0.eyJhdWQiOiJjYW52YXMtY2FudmFzYXBpIiwiaXNzIjoiY2FudmFzLXMyc3Rva2VuIiwibmJmIjoxNzkxOTA3ODM3LCJzdWIiOiI4ZDgwYjMxNS1iNjk1LTRkMGEtYjM3NC0xYjc5NjlmYTUwYTl-U1RBR0lOR34zMzY2ZDE2NC02NjgzLTRmMDktYmZhOS0yOTBhMWVmMmJmYzEifQ.NcHagxB6aa_vf3LnIS1nNMbH2zi5HsATd32se8oqKDg';
-const PRODUCTION_API_TOKEN = 'PEGA_AQUI_EL_TOKEN_DE_PRODUCTION';
-
-const LENS_GROUP_ID = 'b22f656b-6703-4d84-bffb-de04b99f8f6e';
-const LENS_ID = '4724530d-4b41-4868-a856-7b5c3f4f5deb';
-// =========================
+// Los tokens e IDs se editan en config.js
 
 const API_TOKEN = USE_PRODUCTION ? PRODUCTION_API_TOKEN : STAGING_API_TOKEN;
 

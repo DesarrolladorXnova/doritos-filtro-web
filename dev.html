@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Doritos WebAR · Pruebas</title>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: #000;
+      overflow: hidden;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      color: #fff;
+    }
+    #canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    #panel {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 24px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.88);
+    }
+    #panel[hidden] { display: none; }
+    #panel h1 { margin: 0; font-size: 1.3rem; }
+    #panel p { margin: 0; max-width: 420px; opacity: 0.85; line-height: 1.4; }
+    #status {
+      position: fixed;
+      left: 12px;
+      right: 12px;
+      top: max(12px, env(safe-area-inset-top));
+      padding: 8px 12px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.6);
+      font-size: 0.85rem;
+      line-height: 1.35;
+      pointer-events: none;
+      z-index: 10;
+    }
+    #status .ok { color: #7CFC9A; }
+    #status .warn { color: #FFD166; }
+    #status .err { color: #FF6B6B; }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #FFD166;
+      color: #000;
+      font-weight: 700;
+      font-size: 0.75rem;
+      margin-right: 6px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+
+  <div id="panel">
+    <h1>Pruebas Push-to-Web</h1>
+    <p>Inicia sesión con la misma cuenta de Snapchat que usas en Lens Studio. Luego, en Lens Studio, usa <b>Send to Snapchat → Send to Camera Kit</b>.</p>
+    <div id="login"></div>
+  </div>
+
+  <div id="status"><span class="badge">PRUEBAS</span><span id="statusText">Cargando…</span></div>
+
+  <script type="module" src="./dev.js"></script>
+</body>
+</html>
