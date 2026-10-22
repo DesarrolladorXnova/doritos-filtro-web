@@ -11,6 +11,7 @@ import {
   LENS_GROUP_ID,
   LENS_ID,
 } from './config.js';
+import { setupCapture } from './capture.js';
 
 // Los tokens e IDs se editan en config.js
 
@@ -68,6 +69,7 @@ async function start() {
     await session.play();
 
     overlay.hidden = true;
+    setupCapture(canvas);
   } catch (err) {
     console.error(err);
     if (err?.name === 'NotAllowedError') {
