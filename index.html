@@ -4,6 +4,29 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Doritos WebAR</title>
+
+  <!-- Etiqueta global de Google (gtag.js) para la cuenta Floodlight DC-13920585.
+       Necesaria para que funcione el event snippet de abajo. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=DC-13920585"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'DC-13920585');
+  </script>
+
+  <!--
+  Event snippet for Host_Doritos on : Please do not remove.
+  Place this snippet on pages with events you’re tracking.
+  Creation date: 10/26/2026
+  -->
+  <script>
+    gtag('event', 'conversion', {
+      'allow_custom_scripts': true,
+      'send_to': 'DC-13920585/invmedia/host_0+standard'
+    });
+  </script>
+  <!-- End of event snippet: Please do not remove -->
   <style>
     html, body {
       margin: 0;
@@ -134,6 +157,10 @@
   </style>
 </head>
 <body>
+  <!-- Respaldo del pixel Floodlight (Host_Doritos) para navegadores sin JavaScript -->
+  <noscript>
+  <img src="https://ad.doubleclick.net/ddm/activity/src=13920585;type=invmedia;cat=host_0;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;npa=;gdpr=${GDPR};gdpr_consent=${GDPR_CONSENT_755};ord=1?" width="1" height="1" alt=""/>
+  </noscript>
   <canvas id="canvas"></canvas>
 
   <div id="overlay">
